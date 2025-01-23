@@ -1,0 +1,77 @@
+[
+  {
+    "AppName": "Facebook",
+    "URL": "https://www.facebook.com/",
+    "Locator": "//button[@name='login']"
+  },
+  {
+    "AppName": "Dropbox",
+    "URL": "https://www.dropbox.com/",
+    "Locator": "text='Log in'"
+  },
+  {
+    "AppName": "LinkedIn", 
+    "URL": "https://ca.linkedin.com/", 
+   "Locator": "text='Sign in'"
+  },
+  {
+    "AppName": "X",
+    "URL": "https://x.com/",
+    "Locator": "text='Sign in'"
+  },
+  {
+    "AppName": "Instagram",
+    "URL": "https://www.instagram.com/",
+    "Locator": "text='Log in'"
+  },
+  {
+    "AppName": "Asana",
+    "URL": "https://asana.com/",
+    "Locator": "text='Log in'"
+  },
+  {
+    "AppName": "WhatsApp",
+    "URL": "https://www.whatsapp.com/",
+    "Locator": "text='Log in'"
+  },
+  {
+    "AppName": "Zoom",
+    "URL": "https://www.zoom.com/",
+    "Locator": "text='Sign In'"
+  },
+  {
+    "AppName": "Canva",
+    "URL": "https://www.canva.com/",
+    "Locator": "text='Log in'"
+  },
+  {
+    "AppName": "Spotify",
+    "URL": "https://open.spotify.com/",
+    "Locator": "text='Log in'"
+  },
+  {
+    "AppName": "CNNNews",
+    "URL": "https://www.cnn.com/",
+    "Locator": "text='SIgn In'"
+  },
+  {
+    "AppName": "BBCNews",
+    "URL": "https://www.bbc.com/news",
+    "Locator": "text='Sign In'"
+  },
+  {
+    "AppName": "GitHub",
+    "URL": "https://github.com/",
+    "Locator": "text='Sign in'"
+  },
+  {
+    "AppName": "Gmail",
+    "URL": "https://workspace.google.com/gmail/",
+    "Locator": "text='Sign in'"
+  },
+  {
+    "AppName": "GoogleDrive",
+    "URL": "https://workspace.google.com/intl/en-US/products/drive/",
+    "Locator": "text='Sign in'"
+  }
+]

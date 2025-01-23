@@ -4,6 +4,10 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightDemo", "PlaywrightDemo\PlaywrightDemo.csproj", "{411AFDE1-FCD9-A135-F9CB-D6236D9E75E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightNUnitDemo", "PlaywrightNUnitDemo\PlaywrightNUnitDemo.csproj", "{4476F266-DF7B-43D8-AD34-0125DDE33CE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST-5336", "ST-5336\ST-5336.csproj", "{D1E62E36-584B-4F2B-B2D3-E3F153766950}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +18,14 @@ Global
 		{411AFDE1-FCD9-A135-F9CB-D6236D9E75E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411AFDE1-FCD9-A135-F9CB-D6236D9E75E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411AFDE1-FCD9-A135-F9CB-D6236D9E75E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4476F266-DF7B-43D8-AD34-0125DDE33CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4476F266-DF7B-43D8-AD34-0125DDE33CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4476F266-DF7B-43D8-AD34-0125DDE33CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4476F266-DF7B-43D8-AD34-0125DDE33CE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E62E36-584B-4F2B-B2D3-E3F153766950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E62E36-584B-4F2B-B2D3-E3F153766950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E62E36-584B-4F2B-B2D3-E3F153766950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E62E36-584B-4F2B-B2D3-E3F153766950}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
