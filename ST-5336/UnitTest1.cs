@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 
 using Microsoft.Playwright;
+using NUnit.Framework.Interfaces;
 
 namespace ST_5336;
 
@@ -9,6 +10,7 @@ public class Tests
 
 {
     private IPage _driver = null!;
+    private string AppName = string.Empty;
     [SetUp]
     public async Task Setup()
     {
@@ -23,54 +25,50 @@ public class Tests
                 Args = ["--start-maximized"],
                 ViewportSize = ViewportSize.NoViewport
             });
+
         _driver = await context.NewPageAsync();
-        
     }
-    //
-    // [TestCase("Facebook", "https://www.facebook.com/" ,"//button[@name='login']" )]
-    // [TestCase("Dropbox","https://www.dropbox.com/", "text='Log in'" )]
-    // [TestCase("LinkedIn","https://ca.linkedin.com/", "text='Sign in'" )]
-    // [TestCase("X","https://x.com/", "//span[text()='Join today.']" )]
-    // [TestCase("Instagram","https://www.instagram.com/", "text='Log in'" )]
+
+    [TearDown]
+    public async Task TearDown()
+    {
+        var status = TestContext.CurrentContext.Result.Outcome.Status;
+        if (TestStatus.Passed != status)
+        {
+            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = $"{AppName}.jpg" }); //add time stamp to name
+        }
+    }
+    [TestCase("Facebook", "https://www.facebook.com/" ,"//button[@name='login']" )]
+    [TestCase("Dropbox","https://www.dropbox.com/", "text='Log in'" )]
+    [TestCase("LinkedIn","https://ca.linkedin.com/", "text='Sign in'" )]
+    [TestCase("X","https://x.com/", "//span[text()='Join today.']" )]
+    [TestCase("Instagram","https://www.instagram.com/", "text='Log in'" )]
     [TestCase("Asana","https://asana.com/", "//span[text()='Log In']")]
-    // [TestCase("WhatsApp","https://www.whatsapp.com/", "text='Log in'" )]
-    // [TestCase("Zoom","https://www.zoom.com/", "text='Sign In'" )]
-    // [TestCase("NYT","https://www.nytimes.com/", "text='LOG IN'" )]
-    // [TestCase("Canva","https://www.canva.com/", "text='Log in'" )]
-    // [TestCase("Spotify","https://open.spotify.com/", "text='Log in'" )]
-    // [TestCase("CNNNews","https://www.cnn.com/", "text='SIgn In'" )]
-    // [TestCase("BBC","https://www.bbc.com/news", "text='Sign In'" )]
-    // [TestCase("GitHub","https://github.com/", "text='Sign in'" )]
-    // [TestCase("Gmail","https://workspace.google.com/gmail/", "//span[contains(text(),'Create an account')]" )]
-    // [TestCase("GoogleDrive","https://workspace.google.com/intl/en-US/products/drive/", "text='Sign in'" )]
+    [TestCase("WhatsApp","https://www.whatsapp.com/", "text='Log in'" )]
+    [TestCase("Zoom","https://www.zoom.com/", "//a[text()='Sign In']" )]
+    [TestCase("Canva","https://www.canva.com/", "text='Log in'" )]
+    [TestCase("Spotify","https://open.spotify.com/", "text='Log in'" )]
+    [TestCase("BBC","https://www.bbc.com/news", "text='Sign In'" )]
+    [TestCase("GitHub","https://github.com/", "//input[@name='user_email']" )]
+    [TestCase("GoogleDrive","https://workspace.google.com/intl/en-US/products/drive/", "text='Sign in'" )]
+    [TestCase("NYT","https://www.nytimes.com/", "//span[text()='Continue']" )]
+    [TestCase("Gmail","https://workspace.google.com/gmail/", "//a[contains(@class, 'header__aside__button')]//span[text()='Sign in']" )] 
+    [TestCase("CNNNews","https://www.cnn.com/", "//div[@class='header__left']//button[@class='header__menu-icon']" )]
+    
     public async Task LogIn(string appName, string url, string locator)
-    { 
-        
+    {
+        AppName = appName;
         await _driver.GotoAsync(url);
-        // await _driver.WaitForURLAsync(url, new PageWaitForURLOptions
-        // {
-        //     Timeout = 7000,
-        //     // WaitUntil = WaitUntilState.Load
-        // });
-        //
         await _driver.WaitForSelectorAsync(locator, new PageWaitForSelectorOptions
         {
             Timeout = 7000,
             State = WaitForSelectorState.Visible
         });
-
-        try
-        {
-            Assert.That(await _driver.IsVisibleAsync(locator), Is.True, $"Failed to load {appName}.");
-        }
-        catch (AssertionException ex)
-        {
-            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = $"{appName}.jpg" });
-            throw; // Re-throw the exception to ensure the test fails.
-        }
-
+        
+        Assert.That(await _driver.IsVisibleAsync(locator), Is.True, $"Failed to load {appName}.");
+        
     }
-
+    
     private static string GetShiftBrowserPath()
     {
         var localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA")!;

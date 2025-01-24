@@ -17,7 +17,7 @@
   {
     "AppName": "X",
     "URL": "https://x.com/",
-    "Locator": "text='Sign in'"
+    "Locator": "//span[text()='Join today.']"
   },
   {
     "AppName": "Instagram",
@@ -27,7 +27,7 @@
   {
     "AppName": "Asana",
     "URL": "https://asana.com/",
-    "Locator": "text='Log in'"
+    "Locator": "//span[text()='Log In']"
   },
   {
     "AppName": "WhatsApp",
@@ -37,7 +37,7 @@
   {
     "AppName": "Zoom",
     "URL": "https://www.zoom.com/",
-    "Locator": "text='Sign In'"
+    "Locator": "//a[text()='Sign In']"
   },
   {
     "AppName": "Canva",
@@ -50,11 +50,6 @@
     "Locator": "text='Log in'"
   },
   {
-    "AppName": "CNNNews",
-    "URL": "https://www.cnn.com/",
-    "Locator": "text='SIgn In'"
-  },
-  {
     "AppName": "BBCNews",
     "URL": "https://www.bbc.com/news",
     "Locator": "text='Sign In'"
@@ -62,16 +57,26 @@
   {
     "AppName": "GitHub",
     "URL": "https://github.com/",
-    "Locator": "text='Sign in'"
+    "Locator": "//input[@name='user_email']"
   },
   {
     "AppName": "Gmail",
     "URL": "https://workspace.google.com/gmail/",
-    "Locator": "text='Sign in'"
+    "Locator": "//a[contains(@class, 'header__aside__button')]//span[text()='Sign in']"
   },
   {
     "AppName": "GoogleDrive",
     "URL": "https://workspace.google.com/intl/en-US/products/drive/",
     "Locator": "text='Sign in'"
+  },
+  {
+    "AppName":"NYT",
+    "URL":"https://www.nytimes.com/", 
+    "Locator": "//span[text()='Continue']"
+  },
+  {
+    "AppName":"CNNNews",
+    "URL": "https://www.cnn.com/", 
+    "Locator": "//div[@class='header__left']//button[@class='header__menu-icon']"
   }
 ]
