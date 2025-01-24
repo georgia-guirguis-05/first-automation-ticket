@@ -40,11 +40,6 @@
     "Locator": "//a[text()='Sign In']"
   },
   {
-    "AppName": "Canva",
-    "URL": "https://www.canva.com/",
-    "Locator": "text='Log in'"
-  },
-  {
     "AppName": "Spotify",
     "URL": "https://open.spotify.com/",
     "Locator": "text='Log in'"
@@ -78,5 +73,10 @@
     "AppName":"CNNNews",
     "URL": "https://www.cnn.com/", 
     "Locator": "//div[@class='header__left']//button[@class='header__menu-icon']"
+  },
+  {
+    "AppName": "Canva",
+    "URL": "https://www.canva.com/",
+    "Locator": "text='Log in'"
   }
 ]

@@ -1,16 +1,15 @@
 ﻿using System.Diagnostics;
-
+using System.Text.Json;
 using Microsoft.Playwright;
 using NUnit.Framework.Interfaces;
 
 namespace ST_5336;
 
 public class Tests
-//create model, data loader, simplify by moving paths and kill process, figure out how to load a json file.
-
 {
     private IPage _driver = null!;
     private string AppName = string.Empty;
+
     [SetUp]
     public async Task Setup()
     {
@@ -22,7 +21,7 @@ public class Tests
             {
                 ExecutablePath = GetShiftBrowserPath(),
                 Headless = false,
-                Args = ["--start-maximized"],
+                Args = new[] { "--start-maximized" },
                 ViewportSize = ViewportSize.NoViewport
             });
 
@@ -35,40 +34,38 @@ public class Tests
         var status = TestContext.CurrentContext.Result.Outcome.Status;
         if (TestStatus.Passed != status)
         {
-            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = $"{AppName}.jpg" }); //add time stamp to name
+            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss"); // Format: YYYYMMDD_HHMMSS
+            var fileName = $"{AppName}_{timestamp}.jpg";
+            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = fileName });
         }
     }
-    [TestCase("Facebook", "https://www.facebook.com/" ,"//button[@name='login']" )]
-    [TestCase("Dropbox","https://www.dropbox.com/", "text='Log in'" )]
-    [TestCase("LinkedIn","https://ca.linkedin.com/", "text='Sign in'" )]
-    [TestCase("X","https://x.com/", "//span[text()='Join today.']" )]
-    [TestCase("Instagram","https://www.instagram.com/", "text='Log in'" )]
-    [TestCase("Asana","https://asana.com/", "//span[text()='Log In']")]
-    [TestCase("WhatsApp","https://www.whatsapp.com/", "text='Log in'" )]
-    [TestCase("Zoom","https://www.zoom.com/", "//a[text()='Sign In']" )]
-    [TestCase("Canva","https://www.canva.com/", "text='Log in'" )]
-    [TestCase("Spotify","https://open.spotify.com/", "text='Log in'" )]
-    [TestCase("BBC","https://www.bbc.com/news", "text='Sign In'" )]
-    [TestCase("GitHub","https://github.com/", "//input[@name='user_email']" )]
-    [TestCase("GoogleDrive","https://workspace.google.com/intl/en-US/products/drive/", "text='Sign in'" )]
-    [TestCase("NYT","https://www.nytimes.com/", "//span[text()='Continue']" )]
-    [TestCase("Gmail","https://workspace.google.com/gmail/", "//a[contains(@class, 'header__aside__button')]//span[text()='Sign in']" )] 
-    [TestCase("CNNNews","https://www.cnn.com/", "//div[@class='header__left']//button[@class='header__menu-icon']" )]
-    
-    public async Task LogIn(string appName, string url, string locator)
+
+    [Test]
+    public async Task LogIn()
     {
-        AppName = appName;
-        await _driver.GotoAsync(url);
-        await _driver.WaitForSelectorAsync(locator, new PageWaitForSelectorOptions
+        var testDataList = LoadTestData("C:\\Users\\Georgia Guirguis\\Repo\\first-automation-ticket\\ST-5336\\LandingPages.json");
+
+        foreach (var testData in testDataList)
         {
-            Timeout = 7000,
-            State = WaitForSelectorState.Visible
-        });
-        
-        Assert.That(await _driver.IsVisibleAsync(locator), Is.True, $"Failed to load {appName}.");
-        
+            AppName = testData.AppName;
+
+            await _driver.GotoAsync(testData.URL);
+            await _driver.WaitForSelectorAsync(testData.Locator, new PageWaitForSelectorOptions
+            {
+                Timeout = 7000,
+                State = WaitForSelectorState.Visible
+            });
+
+            Assert.That(await _driver.IsVisibleAsync(testData.Locator), Is.True, $"Failed to load {testData.AppName}.");
+        }
     }
-    
+
+    private static List<LandingPageTestDataModel> LoadTestData(string filePath)
+    {
+        var json = File.ReadAllText(filePath);
+        return JsonSerializer.Deserialize<List<LandingPageTestDataModel>>(json) ?? new List<LandingPageTestDataModel>();
+    }
+
     private static string GetShiftBrowserPath()
     {
         var localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA")!;
@@ -88,5 +85,5 @@ public class Tests
             proc.Kill();
         }
     }
-    
 }
+
