@@ -1,13 +1,13 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.Playwright;
 using NUnit.Framework.Interfaces;
 
 namespace ST_5336;
 
-public class Tests
+public class SourceDrivenIncognito
 {
-    private IPage _driver = null!;
+     private IPage _driver = null!;
     private string AppName = string.Empty;
 
     [SetUp]
@@ -24,9 +24,10 @@ public class Tests
                 Args = new[] { "--start-maximized" },
                 ViewportSize = ViewportSize.NoViewport
             });
-
+    
         _driver = await context.NewPageAsync();
     }
+    
 
     [TearDown]
     public async Task TearDown()
@@ -36,7 +37,7 @@ public class Tests
         {
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss"); // Format: YYYYMMDD_HHMMSS
             var fileName = $"{AppName}_{timestamp}.jpg";
-            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = fileName });
+            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\Users\\Georgia Guirguis\\Repo\\first-automation-ticket\\ST-5336\\failures\\{fileName}" });
         }
     }
 
@@ -86,4 +87,3 @@ public class Tests
         }
     }
 }
-
