@@ -40,8 +40,12 @@ public class DataDrivenIncognito
         var status = TestContext.CurrentContext.Result.Outcome.Status;
         if (TestStatus.Passed != status)
         {
-            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = $"{AppName}.jpg" }); //add time stamp to name
+            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss"); // Format: YYYYMMDD_HHMMSS
+            var fileName = $"{AppName}_{timestamp}.jpg";
+            await _driver.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\Users\\Georgia Guirguis\\Repo\\first-automation-ticket\\ST-5336\\failures\\{fileName}" });
         }
+    
+
     }
     [TestCase("Facebook", "https://www.facebook.com/" ,"//button[@name='login']" )]
     [TestCase("Dropbox","https://www.dropbox.com/", "text='Log in'" )]
@@ -60,7 +64,7 @@ public class DataDrivenIncognito
     [TestCase("Gmail","https://workspace.google.com/gmail/", "//a[contains(@class, 'header__aside__button')]//span[text()='Sign in']" )] 
     [TestCase("CNNNews","https://www.cnn.com/", "//div[@class='header__left']//button[@class='header__menu-icon']" )]
     
-    public async Task LogIn(string appName, string url, string locator)
+    public async Task LoadPage(string appName, string url, string locator)
     {
         AppName = appName;
         await _driver.GotoAsync(url);
